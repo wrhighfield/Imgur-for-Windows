@@ -1,0 +1,14 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Imgur.UWP.Resources"
+    xmlns:local1="using:Imgur.UWP.Converters">
+
+    <local1:BoolNegationConverter x:Key="BoolNegationConverter"/>
+    <local1:BoolVisibilityConverter x:Key="BoolVisibilityConverter"/>
+    <local1:BoolValueConverter x:Key="BoolValueConverter"/>
+    <local1:IfValueConverter x:Key="IfValueConverter"/>
+
+
+
+</ResourceDictionary>

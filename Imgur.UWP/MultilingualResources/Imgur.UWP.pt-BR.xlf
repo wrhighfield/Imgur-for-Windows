@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="pt-BR" target-language="pt-BR" original="IMGUR.UWP/STRINGS/EN-US/RESOURCES.RESW" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6921.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="IMGUR.UWP/STRINGS/PT-BR/RESOURCES.RESW" datatype="resx">
+        <trans-unit id="Explorer.Text" translate="yes" xml:space="preserve">
+          <source>Explorar novidades</source>
+          <target state="new">Explorar novidades</target>
+        </trans-unit>
+        <trans-unit id="Settings.Text" translate="yes" xml:space="preserve">
+          <source>Configurações</source>
+          <target state="new">Configurações</target>
+        </trans-unit>
+        <trans-unit id="Tags.Text" translate="yes" xml:space="preserve">
+          <source>Explorar etiquetas</source>
+          <target state="new">Explorar etiquetas</target>
+        </trans-unit>
+        <trans-unit id="Connect.Text" translate="yes" xml:space="preserve">
+          <source>Conectar</source>
+          <target state="new">Conectar</target>
+        </trans-unit>
+        <trans-unit id="Upload.Text" translate="yes" xml:space="preserve">
+          <source>Carregar novo Arquivo</source>
+          <target state="new">Carregar novo Arquivo</target>
+        </trans-unit>
+        <trans-unit id="Teste" translate="yes" xml:space="preserve">
+          <source>testandostring</source>
+          <target state="new">testandostring</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

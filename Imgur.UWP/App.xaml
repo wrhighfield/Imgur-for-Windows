@@ -1,0 +1,22 @@
+﻿<Application
+    x:Class="Imgur.UWP.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    RequestedTheme="Dark"
+    xmlns:local="using:Imgur.UWP">
+    <Application.Resources>
+        <ResourceDictionary>
+            
+            <FontFamily x:Key="FluentUIGlyphs">ms-appx:///Assets/fonts/fluentui.ttf#Segoe MDL2 Assets</FontFamily>
+            <FontFamily x:Key="SegoeMDLGlyphs">ms-appx:///Assets/fonts/segmdl2.ttf#Segoe MDL2 Assets</FontFamily>
+            
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <ResourceDictionary Source="Resources/ThemeDictionary.xaml"/>
+                <ResourceDictionary Source="Resources/ConvertersDictionary.xaml"/>
+                <ResourceDictionary Source="Resources/NavigationSplitView.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>

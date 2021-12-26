@@ -1,0 +1,283 @@
+﻿<UserControl
+    x:Name="NavigationViewControl"
+    x:Class="Imgur.UWP.Controls.NavigationView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Imgur.UWP.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:Media="using:Microsoft.Xaml.Interactions.Media"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)">
+
+
+    <Grid >
+
+        <!-- Navigation View Adapters -->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Uid="NavigationViewTriggers">
+
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1200" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="SplitView.DisplayMode" Value="CompactInline" />
+                        <Setter Target="SplitView.IsPaneOpen" Value="True" />
+                        <Setter Target="headerLeft.Width" Value="{Binding OpenPaneLength, ElementName=SplitView}" />
+                        <Setter Target="headerPanel.Margin" Value="0,5,0,0" />
+                        <Setter Target="headerFooter.Visibility" Value="Collapsed" />
+                        <Setter Target="headerButton.Visibility" Value="Collapsed" />
+                        <Setter Target="headerButton.Margin" Value="4" />
+                        <Setter Target="headerContent.HorizontalAlignment" Value="Center" />
+                        <Setter Target="contentPanel.Margin" Value="15,45,0,0" />
+                        <Setter Target="headerRight.MinWidth" Value="0" />
+                        <Setter Target="SearchPane.Visibility" Value="Collapsed" />
+                        <Setter Target="SearchBox.Visibility" Value="Visible" />
+                        <Setter Target="SearchBox.HorizontalAlignment" Value="Stretch" />
+                        <Setter Target="SearchBox.Margin" Value="100,-7,100,0" />
+                        <Setter Target="SearchBox.MaxWidth" Value="600" />
+                        
+                    </VisualState.Setters>
+                    <VisualState.Storyboard>
+                        <Storyboard>
+
+                        </Storyboard>
+                    </VisualState.Storyboard>
+                </VisualState>
+                
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="SplitView.DisplayMode" Value="CompactInline" />
+                        <Setter Target="SplitView.IsPaneOpen" Value="True" />
+                        <Setter Target="headerLeft.Width" Value="{Binding OpenPaneLength, ElementName=SplitView}" />
+                        <Setter Target="headerPanel.Margin" Value="0,5,0,0" />
+                        <Setter Target="headerFooter.Visibility" Value="Collapsed" />
+                        <Setter Target="headerButton.Visibility" Value="Collapsed" />
+                        <Setter Target="headerButton.Margin" Value="4" />
+                        <Setter Target="headerContent.HorizontalAlignment" Value="Center" />
+                        <Setter Target="contentPanel.Margin" Value="15,45,0,0" />
+                        <Setter Target="headerRight.MinWidth" Value="110" />
+                        <Setter Target="SearchPane.Visibility" Value="Collapsed" />
+                        <Setter Target="SearchBox.Visibility" Value="Visible" />
+                        <Setter Target="SearchBox.HorizontalAlignment" Value="Stretch" />
+                        <Setter Target="SearchBox.Margin" Value="40,-7,40,0" />
+                        <Setter Target="SearchBox.MaxWidth" Value="500" />
+                    </VisualState.Setters>
+                    <VisualState.Storyboard>
+                        <Storyboard>
+                            
+                        </Storyboard>
+                    </VisualState.Storyboard>
+                </VisualState>
+
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="500" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="SplitView.IsPaneOpen" Value="False" />
+                        <Setter Target="SplitView.DisplayMode" Value="CompactInline" />
+                        <Setter Target="contentPanel.Margin" Value="15,50,0,0" />
+                        <Setter Target="headerPanel.Margin" Value="9,9,0,0" />
+                        <Setter Target="headerFooter.Visibility" Value="Collapsed" />
+                        <Setter Target="headerButton.Visibility" Value="Visible" />
+                        <Setter Target="headerContent.Margin" Value="20,0,0,0" />
+                        <Setter Target="headerContent.HorizontalAlignment" Value="Left" />
+                        <Setter Target="SearchBox.Visibility" Value="Collapsed" />
+                        <Setter Target="SearchBox.MaxWidth" Value="200" />
+                        <Setter Target="SearchBox.HorizontalAlignment" Value="Left" />
+                    </VisualState.Setters>
+                    <VisualState.Storyboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="MovingTransform" 
+                                 Storyboard.TargetProperty="Y"
+                                 From="25"
+                                 To="0"
+                                 Duration="0:0:0.15">
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </VisualState.Storyboard>
+                </VisualState>
+
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="300" />
+                    </VisualState.StateTriggers>
+
+                    <VisualState.Setters>
+                        <Setter Target="SplitView.IsPaneOpen" Value="False" />
+                        <Setter Target="SplitView.DisplayMode" Value="Overlay" />
+                        <Setter Target="headerButton.Visibility" Value="Visible" />
+                        <Setter Target="headerButton.Margin" Value="0,4,0,0" />
+                        <Setter Target="headerContent.HorizontalAlignment" Value="Left" />
+                    </VisualState.Setters>
+                    <VisualState.Storyboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="MovingTransform"
+                                 Storyboard.TargetProperty="Y"
+                                 From="0"
+                                 To="25"
+                                 Duration="0:0:0.5">
+                                <DoubleAnimation.EasingFunction>
+                                    <BackEase/>
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="StaticTransform" Storyboard.TargetProperty="Y">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="-25"/>
+                            </ObjectAnimationUsingKeyFrames>
+
+
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BasePanel" Storyboard.TargetProperty="Margin">
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{Binding IsTitleBarPresent ,ElementName=NavigationViewControl,Converter={StaticResource BoolValueConverter},ConverterParameter='0,25,0,0|0'}"/>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState.Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <!-- TitlePanel Underlayer for Desktop double tap (Maximize)  -->
+        <Grid x:Name="titlePanel" VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="Transparent" Height="{Binding ActualHeight,ElementName=headerPanel}" />
+
+        <!-- Navigation View Base -->
+        <Grid x:Name="BasePanel" Margin="0">
+
+            <!-- Animation Tranformers for Desktop (If width < 500px) -->
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <TranslateTransform x:Name="MovingTransform"/>
+                    <TranslateTransform x:Name="StaticTransform"/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+
+            <!-- HeaderPanel for NavigationView -->
+            <Grid x:Name="headerPanel" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="4,4,0,0" Canvas.ZIndex="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition x:Name="headerLeft" Width="auto"  />
+                    <ColumnDefinition x:Name="headerSearch" Width="*"  />
+                    <ColumnDefinition x:Name="headerRight" Width="auto"  />
+                </Grid.ColumnDefinitions>
+
+                <!-- Hamburguer Menu -->
+                <Button x:Name="headerButton" Grid.Column="0" Background="Transparent" Visibility="Visible" Width="40" Height="40" Margin="0,0,4,0" BorderBrush="Transparent"  Click="HeaderButton_Click" >
+                    <Button.Content>
+                        <FontIcon x:Name="headerIcon" FontFamily="ms-appx:///Assets/Fonts/segmdl2.ttf#Segoe MDL2 Assets" Foreground="White" FontWeight="Light" FontSize="24" Glyph="&#xE700;"/>
+                    </Button.Content>
+                    <Interactivity:Interaction.Behaviors>
+
+                        <Core:EventTriggerBehavior EventName="Tapped">
+                            <Media:ControlStoryboardAction>
+                                <Media:ControlStoryboardAction.Storyboard>
+                                    <Storyboard>
+
+                                    </Storyboard>
+                                    
+                                </Media:ControlStoryboardAction.Storyboard>
+
+                            </Media:ControlStoryboardAction>
+                            <Core:ChangePropertyAction TargetObject="{Binding ElementName=SplitView}" PropertyName="IsPaneOpen" Value="{Binding IsPaneOpen,ElementName=NavigationViewControl,Converter={StaticResource BoolNegationConverter}}"></Core:ChangePropertyAction>
+                        </Core:EventTriggerBehavior>
+                        
+                        <Core:EventTriggerBehavior EventName="PointerEntered">
+                            <Core:ChangePropertyAction TargetObject="{Binding ElementName=headerIcon}" PropertyName="Foreground">
+                                <Core:ChangePropertyAction.Value>
+                                    <SolidColorBrush Color="#01b96b"/>
+                                </Core:ChangePropertyAction.Value>
+                            </Core:ChangePropertyAction>
+                        </Core:EventTriggerBehavior>
+
+                        <Core:EventTriggerBehavior EventName="PointerExited">
+                            <Core:ChangePropertyAction  TargetObject="{Binding ElementName=headerIcon}" PropertyName="Foreground">
+                                <Core:ChangePropertyAction.Value>
+                                    <SolidColorBrush Color="White"/>
+                                </Core:ChangePropertyAction.Value>
+                            </Core:ChangePropertyAction>
+                        </Core:EventTriggerBehavior>
+                    </Interactivity:Interaction.Behaviors>
+                </Button>
+
+                <!-- HeaderContent Left -->
+                <ContentPresenter Grid.Column="1" x:Name="headerContent"  Visibility="Visible"  Content="{Binding HeaderContent,ElementName=NavigationViewControl,Mode=TwoWay}">
+
+                    <ContentPresenter.RenderTransform>
+                        <TransformGroup>
+                            <TranslateTransform x:Name="SlideHeader"/>
+                            <TranslateTransform x:Name="ResetHeader"/>
+
+                        </TransformGroup>
+                    </ContentPresenter.RenderTransform>
+                </ContentPresenter>
+
+                <!-- HeaderContent Search -->
+                <AutoSuggestBox QueryIcon="Find"  x:Name="SearchBox"  Visibility="Collapsed" Grid.Column="2" PlaceholderText="Images, #tags, @users oh my!"  Margin="20,-7,20,0" Height="31"  HorizontalAlignment="Stretch"></AutoSuggestBox>
+                
+                
+                <!-- HeaderContent Bottom (Visible only on compact Mode) -->
+                <StackPanel x:Name="headerFooter" Grid.Column="3" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,5,0" >
+                    <Button Style="{x:Null}" Background="Transparent" BorderThickness="0" Padding="10">
+                        <FontIcon  FontFamily="{StaticResource SegoeMDLGlyphs}" Foreground="White" FontWeight="Light" FontSize="16" Glyph="&#xE721;"/>
+
+                        <Interactivity:Interaction.Behaviors>
+                            <Core:EventTriggerBehavior EventName="Tapped">
+                                <Core:ChangePropertyAction TargetObject="{Binding ElementName=SplitView}" PropertyName="IsPaneOpen" Value="True"></Core:ChangePropertyAction>
+                            </Core:EventTriggerBehavior>
+                        </Interactivity:Interaction.Behaviors>
+                    </Button>
+                    <ContentPresenter Content="{Binding HeaderControls,ElementName=NavigationViewControl,Mode=TwoWay}" Height="20" Visibility="Collapsed" >
+                    </ContentPresenter>
+                </StackPanel>
+            
+            </Grid>
+
+            
+            <!-- SplitView -->
+            <SplitView Style="{StaticResource CustomSplitView}"  x:Name="SplitView" IsPaneOpen="{Binding IsPaneOpen,ElementName=NavigationViewControl,Mode=TwoWay,FallbackValue='false'}" OpenPaneLength="280" VerticalAlignment="Stretch" CompactPaneLength="58">
+                <SplitView.Pane>
+                    <!-- Navigation Panel Content -->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" MinHeight="48" />
+                            <RowDefinition  Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid x:Name="SearchPane"  Visibility="Visible" Grid.Row="0" Margin="0,10,0,4">
+                            <Button Background="Transparent" Height="40" Width="40" BorderThickness="0" Margin="8,0,8,0" Visibility="{Binding IsPaneOpen,ElementName=SplitView,Converter={StaticResource BoolNegationConverter}}" >
+                                <FontIcon  HorizontalAlignment="Center" FontFamily="{StaticResource SegoeMDLGlyphs}" Foreground="White" FontWeight="Light" FontSize="16" Glyph="&#xE721;"/>
+                                <Interactivity:Interaction.Behaviors>
+                                    <Core:EventTriggerBehavior EventName="Tapped">
+                                        <Core:ChangePropertyAction TargetObject="{Binding ElementName=SplitView}" PropertyName="IsPaneOpen" Value="True"></Core:ChangePropertyAction>
+                                    </Core:EventTriggerBehavior>
+                                </Interactivity:Interaction.Behaviors>
+                            </Button>
+                            <AutoSuggestBox QueryIcon="Find" x:Name="PaneSearchBox" Visibility="{Binding IsPaneOpen,ElementName=SplitView}"  Margin="10,0,10,0" Grid.Column="2" PlaceholderText="Images, #tags, @users oh my!"  Opacity="0.9"  HorizontalAlignment="Stretch"></AutoSuggestBox>
+
+                        </Grid>
+                        <ScrollViewer  Grid.Row="1">
+                            <ContentPresenter Margin="0,0,0,0"  Content="{x:Bind NavigationItems, Mode=OneWay}" />
+                        </ScrollViewer>
+                        <StackPanel Margin="0,0,0,5" Grid.Row="2">
+                            <ContentPresenter Margin="0,0,0,0" Content="{x:Bind FooterPanel, Mode=OneWay}" />
+                        </StackPanel>
+                    </Grid>
+                </SplitView.Pane>
+                
+                <SplitView.Content>
+                    <!-- Navigation Frame Content -->
+                    <ContentPresenter Margin="10,50,0,10" x:Name="contentPanel" Content="{x:Bind NavigationContent, Mode=OneWay}" />
+                </SplitView.Content>
+            </SplitView>
+        </Grid>
+    </Grid>
+</UserControl>
