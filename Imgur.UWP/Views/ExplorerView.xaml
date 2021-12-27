@@ -8,7 +8,45 @@
     mc:Ignorable="d"
     Background="Transparent">
 
-    <Grid>
-        <ProgressRing Width="80" FontWeight="SemiLight" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="True" Margin="0,0,0,0"></ProgressRing>
+    <Grid x:Name="RootGrid" Margin="0,10,0,0">
+
+        <!-- Navigation View Adapters -->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Uid="NavigationViewTriggers">
+
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="500" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="CommandBar.Margin" Value="3,0,8,0" />
+                        <Setter Target="CommandBar.CornerRadius" Value="4" />
+
+                    </VisualState.Setters>
+                    <VisualState.Storyboard>
+                        <Storyboard>
+
+                        </Storyboard>
+                    </VisualState.Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <ProgressRing Width="80" FontWeight="SemiLight" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{Binding Loading}" Margin="0,0,0,0"></ProgressRing>
+
+        <Grid x:Name="ContentGrid" Visibility="{Binding Loading,Converter={StaticResource BoolNegationConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid  x:Name="CommandBar">
+                <Grid Opacity="0.9" BorderThickness="2" BorderBrush="{ThemeResource AcrylicInAppFillColorDefaultBrush}" Height="60" VerticalAlignment="Center" Padding="10">
+                    <ComboBox SelectedIndex="0" Width="180" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <x:String>Most Viral</x:String>
+                        <x:String>User Submitted</x:String>
+                        <x:String>Highest Score</x:String>
+                    </ComboBox>
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

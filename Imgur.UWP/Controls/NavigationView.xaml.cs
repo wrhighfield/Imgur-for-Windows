@@ -30,7 +30,9 @@ namespace Imgur.UWP.Controls
         }
 
 
-        private void Load(){        
+        private void Load(){
+
+
             IsPaneOpen = true;
             Window.Current.SetTitleBar(titlePanel);
 

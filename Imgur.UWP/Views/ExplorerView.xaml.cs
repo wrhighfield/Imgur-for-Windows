@@ -30,5 +30,13 @@ namespace Imgur.UWP.Views
             this.DataContext = App.Services.GetRequiredService<ExplorerViewModel>();
 
         }
+
+        public ExplorerViewModel ViewModel => (ExplorerViewModel)this.DataContext;
+
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+             ViewModel.InitializeAsync();
+        }
     }
 }

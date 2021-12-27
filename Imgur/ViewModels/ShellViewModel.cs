@@ -12,47 +12,20 @@ namespace Imgur.ViewModels
     public class ShellViewModel : Observable
     {
 
-    
-        private string _lastName= "tESTELALala";
+        //D.I (Dependency Injection)
         private readonly INavigator _navigator;
         private readonly IDialogService _dialogService;
 
-        public ShellViewModel(INavigator navigator, IDialogService dialogService){
-            _navigator = navigator;
-            _dialogService = dialogService;
-        }
 
+        //Commands
+        private ICommand _openUploadCommand;
 
-
-        /*
-        public bool IsPaneOpen{
-            get { return _lastName;  }
-            set{
-                _lastName = value;
-                OnPropertyChanged("LastName");
-            }
-        }
-        
-        private ICommand _setPaneCommand;
-        public ICommand OpenPaneCommand
+        public ICommand OpenUploadCommand
         {
             get
             {
-                if (_setPaneCommand == null)
+                if (_openUploadCommand == null)
                 {
-                    _setPaneCommand = new RelayCommand(() => IsPaneOpen = !_isPaneOpen);
-                }
-
-                return _setPaneCommand;
-            }
-        }*/
-
-            
-        private ICommand _openUploadCommand;
-
-        public ICommand OpenUploadCommand{
-            get{
-                if(_openUploadCommand == null){
                     _openUploadCommand = new RelayCommand(() => _dialogService.OpenUploadAsync());
                 }
                 return _openUploadCommand;
@@ -61,16 +34,40 @@ namespace Imgur.ViewModels
 
         private ICommand _navigateToCommand;
 
-        public ICommand NavigateToCommand{
-            get{
-                if (_navigateToCommand == null){
-                    _navigateToCommand = new RelayCommand<String>((route) => _navigator.Navigate(route));
+        public ICommand NavigateToCommand
+        {
+            get
+            {
+                if (_navigateToCommand == null)
+                {
+                    _navigateToCommand = new RelayCommand<string>((route) => _navigator.Navigate(route));
                 }
                 return _navigateToCommand;
             }
         }
-        
 
-        public ICommand SwitchThemeCommand { get; private set; }
+        //Vars
+        private bool _loading;
+
+        public bool Loading
+        {
+            get { return _loading; }
+            set
+            {
+                _loading = value;
+                OnPropertyChanged("Loading");
+            }
+        }
+
+
+        //Constructor
+        public ShellViewModel(INavigator navigator, IDialogService dialogService){
+            _navigator = navigator;
+            _dialogService = dialogService;
+        }
+
+
+
+
     }
 }

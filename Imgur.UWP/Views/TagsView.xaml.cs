@@ -28,5 +28,17 @@ namespace Imgur.UWP.Views
             this.InitializeComponent();
             this.DataContext = App.Services.GetRequiredService<TagsViewModel>();
         }
+
+
+        public TagsViewModel ViewModel => (TagsViewModel)this.DataContext;
+
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            ViewModel.InitializeAsync();
+        }
+
     }
+
+
 }
