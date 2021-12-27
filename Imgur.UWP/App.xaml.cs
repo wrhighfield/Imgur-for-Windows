@@ -169,9 +169,14 @@ namespace Imgur.UWP
 
 
             var provider = new ServiceCollection()
+
+                //If Service use Singleton
                 .AddSingleton<INavigator, Navigator>()
-                .AddSingleton<IDialogService,DialogService>()
-                .AddSingleton<ISystemInfoProvider,SystemInfoProvider>()
+                .AddSingleton<IDialogService, DialogService>()
+                .AddSingleton<ISystemInfoProvider, SystemInfoProvider>()
+                .AddSingleton<ILocalSettings, LocalSettings>()
+
+                // If ViewModel use Transitent
                 .AddTransient<ShellViewModel>()
                 .AddTransient<SettingsViewModel>()
                 .AddTransient<ExplorerViewModel>()

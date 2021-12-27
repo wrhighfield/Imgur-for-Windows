@@ -5,6 +5,7 @@
     xmlns:local="using:Imgur.UWP.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
     <Grid x:Name="RootPane">
 
@@ -13,7 +14,5 @@
         <Grid x:Name="ContentPane" Visibility="{Binding Loading,Converter={StaticResource BoolNegationConverter}}">
             <TextBlock>Tags Loaded</TextBlock>
         </Grid>
-
-
     </Grid>
 </Page>
