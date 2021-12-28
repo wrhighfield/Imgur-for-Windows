@@ -46,20 +46,27 @@ namespace Imgur.UWP.Services
         }
 
         public void Navigate(string name){
-            Debug.WriteLine("--");
-            Debug.WriteLine(name);
-            Debug.WriteLine("--");
             if (Frame is Frame f) {
-                Debug.WriteLine(name);
                 switch (name){
                     case "explorer":
-                        f.Navigate(typeof(ExplorerView), null, new DrillInNavigationTransitionInfo());
+                        //Can't Navigate Twice to the same View
+                        if (f.Content.GetType() != typeof(ExplorerView))
+                        {
+                            f.Tag = name;
+                            f.Navigate(typeof(ExplorerView), null, new DrillInNavigationTransitionInfo());
+                        }
                         break;
                     case "tags":
-                        f.Navigate(typeof(TagsView), null, new DrillInNavigationTransitionInfo());
+                        if (f.Content.GetType() != typeof(TagsView)){
+                            f.Tag = name;
+                            f.Navigate(typeof(TagsView), null, new DrillInNavigationTransitionInfo());
+                        }
                         break;
                     case "settings":
-                        f.Navigate(typeof(SettingsView), null, new DrillInNavigationTransitionInfo());
+                        if (f.Content.GetType() != typeof(SettingsView)){
+                            f.Tag = name;
+                            f.Navigate(typeof(SettingsView), null, new DrillInNavigationTransitionInfo());
+                        }                     
                         break;
                 }
             }

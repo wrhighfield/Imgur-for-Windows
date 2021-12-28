@@ -22,24 +22,29 @@
                     </StackPanel>
                 </Grid>
             </controls:NavigationView.HeaderContent>
+            <controls:NavigationView.HeaderControls>
+                <Button Style="{StaticResource CircleButtonStyle}" Background="Transparent" Width="40" Height="40" HorizontalContentAlignment="Center" VerticalAlignment="Center" BorderThickness="0" Padding="10" ToolTipService.ToolTip="Upload New File"  Command="{Binding Path=OpenUploadCommand}">
+                    <FontIcon  FontFamily="{StaticResource FluentUIGlyphs}" Foreground="White" FontWeight="Light" FontSize="18" Glyph="&#xEE71;"/>
+                </Button>
+            </controls:NavigationView.HeaderControls>
             <controls:NavigationView.NavigationContent>
-                <Frame x:Name="MainFrame" />
+                <Frame x:Name="MainFrame" Tag="" />
             </controls:NavigationView.NavigationContent>
 
             <controls:NavigationView.NavigationItems>
                 <StackPanel >
-                    <controls:NavigationViewItem x:Uid="Explorer" Text="" Icon="&#xF133;" Command="{Binding Path=NavigateToCommand}" CommandParameter="explorer" />
-                    <controls:NavigationViewItem x:Uid="Tags" Text="Explore Tags" Icon="&#xE8EC;" Command="{Binding Path=NavigateToCommand}" CommandParameter="tags" />
-                    <controls:NavigationViewItem x:Uid="Connect" Text="Conectar" Icon="&#xE77B;" />
+                    <controls:NavigationViewItem x:Uid="Explorer" Text="" Icon="&#xF133;" Command="{Binding Path=NavigateToCommand}" CommandParameter="explorer"  FontIcon="{StaticResource SegoeMDLGlyphs}" />
+                    <controls:NavigationViewItem x:Uid="Tags" Text="Explore Tags" Icon="&#xE8EC;" Command="{Binding Path=NavigateToCommand}" CommandParameter="tags" FontIcon="{StaticResource FluentUIGlyphs}" />
+                    <controls:NavigationViewItem x:Uid="Connect" Text="Conectar" Icon="&#xE77B;" FontIcon="{StaticResource FluentUIGlyphs}" />
                 </StackPanel>
             </controls:NavigationView.NavigationItems>
 
             <controls:NavigationView.FooterPanel>
                 <StackPanel>
 
-                    <controls:NavigationViewItem x:Uid="Upload" Text="Upload new File" Icon="&#xEE71;" Command="{Binding Path=OpenUploadCommand}"  />
+                    <controls:NavigationViewItem x:Uid="Upload" Text="Upload new File" Icon="&#xEE71;" Command="{Binding Path=OpenUploadCommand}" FontIcon="{StaticResource FluentUIGlyphs}"  />
 
-                    <controls:NavigationViewItem x:Uid="Settings" Text="Configurações" Icon="&#xE713;"  Command="{Binding Path=NavigateToCommand}" CommandParameter="settings" />
+                    <controls:NavigationViewItem x:Uid="Settings" Text="Configurações" Icon="&#xE713;"  Command="{Binding Path=NavigateToCommand}" CommandParameter="settings" FontIcon="{StaticResource FluentUIGlyphs}" />
                 </StackPanel>
             </controls:NavigationView.FooterPanel>
         </controls:NavigationView>

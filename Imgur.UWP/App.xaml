@@ -14,7 +14,7 @@
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <ResourceDictionary Source="Resources/ThemeDictionary.xaml"/>
                 <ResourceDictionary Source="Resources/ConvertersDictionary.xaml"/>
-                <ResourceDictionary Source="Resources/NavigationSplitView.xaml"/>
+                <ResourceDictionary Source="Resources/ControlStylesDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

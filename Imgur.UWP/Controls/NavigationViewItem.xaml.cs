@@ -85,9 +85,24 @@ namespace Imgur.UWP.Controls
             set { SetValue(TextProperty, value); }
         }
 
+        
 
         // Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.Register("Text", typeof(string), typeof(NavigationViewItem), new PropertyMetadata(0));
+
+
+
+        public FontFamily FontIcon
+        {
+            get { return (FontFamily)GetValue(FontIconProperty); }
+            set { SetValue(FontIconProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FontIcon.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FontIconProperty =
+            DependencyProperty.Register("FontIcon", typeof(FontFamily), typeof(NavigationViewItem), new PropertyMetadata(0));
+
+
     }
 }

@@ -140,6 +140,9 @@
     <Compile Include="Controls\NavigationViewItem.xaml.cs">
       <DependentUpon>NavigationViewItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SettingBox.xaml.cs">
+      <DependentUpon>SettingBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\UploadControl.xaml.cs">
       <DependentUpon>UploadControl.xaml</DependentUpon>
     </Compile>
@@ -204,6 +207,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\SettingBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\UploadControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -212,7 +219,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\NavigationSplitView.xaml">
+    <Page Include="Resources\ControlStylesDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

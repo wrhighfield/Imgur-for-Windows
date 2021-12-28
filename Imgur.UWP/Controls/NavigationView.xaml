@@ -37,7 +37,6 @@
                         <Setter Target="headerButton.Margin" Value="4" />
                         <Setter Target="headerContent.HorizontalAlignment" Value="Center" />
                         <Setter Target="contentPanel.Margin" Value="15,45,0,0" />
-                        <Setter Target="headerRight.MinWidth" Value="0" />
                         <Setter Target="SearchPane.Visibility" Value="Collapsed" />
                         <Setter Target="SearchBox.Visibility" Value="Visible" />
                         <Setter Target="SearchBox.HorizontalAlignment" Value="Stretch" />
@@ -66,7 +65,6 @@
                         <Setter Target="headerButton.Margin" Value="4" />
                         <Setter Target="headerContent.HorizontalAlignment" Value="Center" />
                         <Setter Target="contentPanel.Margin" Value="15,45,0,0" />
-                        <Setter Target="headerRight.MinWidth" Value="110" />
                         <Setter Target="SearchPane.Visibility" Value="Collapsed" />
                         <Setter Target="SearchBox.Visibility" Value="Visible" />
                         <Setter Target="SearchBox.HorizontalAlignment" Value="Stretch" />
@@ -88,7 +86,7 @@
                         <Setter Target="SplitView.IsPaneOpen" Value="False" />
                         <Setter Target="SplitView.DisplayMode" Value="CompactInline" />
                         <Setter Target="contentPanel.Margin" Value="15,50,0,0" />
-                        <Setter Target="headerPanel.Margin" Value="9,9,0,0" />
+                        <Setter Target="headerPanel.Margin" Value="4,9,0,0" />
                         <Setter Target="headerFooter.Visibility" Value="Collapsed" />
                         <Setter Target="headerButton.Visibility" Value="Visible" />
                         <Setter Target="headerContent.Margin" Value="20,0,0,0" />
@@ -118,7 +116,10 @@
                         <Setter Target="SplitView.IsPaneOpen" Value="False" />
                         <Setter Target="SplitView.DisplayMode" Value="Overlay" />
                         <Setter Target="headerButton.Visibility" Value="Visible" />
-                        <Setter Target="headerButton.Margin" Value="0,4,0,0" />
+                        <Setter Target="titlePanel.Background" Value="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}" />
+                        <Setter Target="headerBackground.Background" Value="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}" />
+
+                        <Setter Target="headerButton.Margin" Value="0,0,10,0" />
                         <Setter Target="headerContent.HorizontalAlignment" Value="Left" />
                     </VisualState.Setters>
                     <VisualState.Storyboard>
@@ -139,7 +140,7 @@
 
 
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BasePanel" Storyboard.TargetProperty="Margin">
-                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{Binding IsTitleBarPresent ,ElementName=NavigationViewControl,Converter={StaticResource BoolValueConverter},ConverterParameter='0,25,0,0|0'}"/>
+                                <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{Binding IsTitleBarPresent ,ElementName=NavigationViewControl,Converter={StaticResource BoolValueConverter},ConverterParameter='0,24,0,0|0'}"/>
                             </ObjectAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualState.Storyboard>
@@ -148,7 +149,7 @@
         </VisualStateManager.VisualStateGroups>
 
         <!-- TitlePanel Underlayer for Desktop double tap (Maximize)  -->
-        <Grid x:Name="titlePanel" VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="Transparent" Height="{Binding ActualHeight,ElementName=headerPanel}" />
+        <Grid x:Name="titlePanel" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Background="Transparent" Height="24" />
 
         <!-- Navigation View Base -->
         <Grid x:Name="BasePanel" Margin="0">
@@ -162,16 +163,16 @@
             </Grid.RenderTransform>
 
             <!-- HeaderPanel for NavigationView -->
-            <Grid x:Name="headerPanel" VerticalAlignment="Top" HorizontalAlignment="Stretch"  Margin="4,4,0,0" Canvas.ZIndex="1">
+            <Grid x:Name="headerBackground" Height="48" VerticalAlignment="Top" Canvas.ZIndex="0" />
+            <Grid x:Name="headerPanel" VerticalAlignment="Top" Height="48" Opacity="0.9"  HorizontalAlignment="Stretch" Padding="4,4,0,0" Canvas.ZIndex="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition x:Name="headerLeft" Width="auto"  />
                     <ColumnDefinition x:Name="headerSearch" Width="*"  />
-                    <ColumnDefinition x:Name="headerRight" Width="auto"  />
                 </Grid.ColumnDefinitions>
 
                 <!-- Hamburguer Menu -->
-                <Button x:Name="headerButton" Grid.Column="0" Background="Transparent" Visibility="Visible" Width="40" Height="40" Margin="0,0,4,0" BorderBrush="Transparent"  Click="HeaderButton_Click" >
+                <Button x:Name="headerButton" Grid.Column="0" Background="Transparent" Visibility="Visible" Width="40" Height="40" Margin="0,0,4,4" BorderBrush="Transparent"  Click="HeaderButton_Click" >
                     <Button.Content>
                         <FontIcon x:Name="headerIcon" FontFamily="ms-appx:///Assets/Fonts/segmdl2.ttf#Segoe MDL2 Assets" Foreground="White" FontWeight="Light" FontSize="24" Glyph="&#xE700;"/>
                     </Button.Content>
@@ -223,10 +224,20 @@
                 <!-- HeaderContent Search -->
                 <AutoSuggestBox QueryIcon="Find"  x:Name="SearchBox"  Visibility="Collapsed" Grid.Column="2" PlaceholderText="Images, #tags, @users oh my!"  Margin="20,-7,20,0" Height="31"  HorizontalAlignment="Stretch"></AutoSuggestBox>
                 
+
+            
+            </Grid>
+            
+            <!-- HeaderContent Bottom (Visible only on compact Mode) -->
+            <Grid x:Name="headerFooter" VerticalAlignment="Top" HorizontalAlignment="Right" Height="48" Visibility="Visible">
+
                 
-                <!-- HeaderContent Bottom (Visible only on compact Mode) -->
-                <StackPanel x:Name="headerFooter" Grid.Column="3" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,5,0" >
-                    <Button Style="{x:Null}" Background="Transparent" BorderThickness="0" Padding="10">
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,0,5,0"  >
+
+                    <ContentPresenter Content="{Binding HeaderControls,ElementName=NavigationViewControl,Mode=TwoWay}" Visibility="Visible" Margin="5,0,0,0" >
+                    </ContentPresenter>
+
+                    <Button Style="{StaticResource CircleButtonStyle}" Background="Transparent" BorderThickness="0"  Width="40" Height="40" ToolTipService.ToolTip="Search" HorizontalContentAlignment="Center" VerticalAlignment="Center">
                         <FontIcon  FontFamily="{StaticResource SegoeMDLGlyphs}" Foreground="White" FontWeight="Light" FontSize="16" Glyph="&#xE721;"/>
 
                         <Interactivity:Interaction.Behaviors>
@@ -235,15 +246,12 @@
                             </Core:EventTriggerBehavior>
                         </Interactivity:Interaction.Behaviors>
                     </Button>
-                    <ContentPresenter Content="{Binding HeaderControls,ElementName=NavigationViewControl,Mode=TwoWay}" Height="20" Visibility="Collapsed" >
-                    </ContentPresenter>
-                </StackPanel>
-            
-            </Grid>
+                    
 
-            
+                </StackPanel>
+            </Grid>
             <!-- SplitView -->
-            <SplitView Style="{StaticResource CustomSplitView}"  x:Name="SplitView" IsPaneOpen="{Binding IsPaneOpen,ElementName=NavigationViewControl,Mode=TwoWay,FallbackValue='false'}" OpenPaneLength="280" VerticalAlignment="Stretch" CompactPaneLength="58">
+            <SplitView Style="{StaticResource CustomSplitView}"  x:Name="SplitView" IsPaneOpen="{Binding IsPaneOpen,ElementName=NavigationViewControl,Mode=TwoWay,FallbackValue='false'}"  OpenPaneLength="280" VerticalAlignment="Stretch" CompactPaneLength="58">
                 <SplitView.Pane>
                     <!-- Navigation Panel Content -->
                     <Grid>
@@ -252,7 +260,7 @@
                             <RowDefinition Height="*" MinHeight="48" />
                             <RowDefinition  Height="auto"/>
                         </Grid.RowDefinitions>
-                        <Grid x:Name="SearchPane"  Visibility="Visible" Grid.Row="0" Margin="0,10,0,4">
+                        <Grid x:Name="SearchPane"  Visibility="Visible" Grid.Row="0" Margin="0,10,0,4"  >
                             <Button Background="Transparent" Height="40" Width="40" BorderThickness="0" Margin="8,0,8,0" Visibility="{Binding IsPaneOpen,ElementName=SplitView,Converter={StaticResource BoolNegationConverter}}" >
                                 <FontIcon  HorizontalAlignment="Center" FontFamily="{StaticResource SegoeMDLGlyphs}" Foreground="White" FontWeight="Light" FontSize="16" Glyph="&#xE721;"/>
                                 <Interactivity:Interaction.Behaviors>
