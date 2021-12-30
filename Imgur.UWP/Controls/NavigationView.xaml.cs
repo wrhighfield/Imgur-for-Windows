@@ -32,9 +32,8 @@ namespace Imgur.UWP.Controls
 
         private void Load(){
 
-
-            IsPaneOpen = true;
             Window.Current.SetTitleBar(titlePanel);
+            IsPaneOpen = false;
 
             //Fix for mobile
             switch (AnalyticsInfo.VersionInfo.DeviceFamily){
@@ -44,7 +43,7 @@ namespace Imgur.UWP.Controls
                 default:
                     IsTitleBarPresent = true;
                     break;
-            }
+            }           
         }
         
         public bool IsTitleBarPresent { get; set; }
@@ -180,6 +179,19 @@ namespace Imgur.UWP.Controls
         private void HeaderButton_Click(object sender, RoutedEventArgs e)
         {
            // IsPaneOpen = !IsPaneOpen;
+        }
+
+        private void NavigationViewControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            switch (App.AppStartBounds.Width)
+            {
+                case double w when (w > 800 && w < 1200):
+                    VisualStateManager.GoToState(this, nameof(InlineState), false);
+                    break;
+                case double w when (w >= 1200):
+                    VisualStateManager.GoToState(this, nameof(WidescreenInlineState), false);
+                    break;
+            }
         }
     }
 

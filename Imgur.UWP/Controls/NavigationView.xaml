@@ -14,7 +14,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)">
+    xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)" Loaded="NavigationViewControl_Loaded">
 
 
     <Grid >
@@ -23,7 +23,7 @@
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Uid="NavigationViewTriggers">
 
-                <VisualState>
+                <VisualState x:Name="WidescreenInlineState">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="1200" />
                     </VisualState.StateTriggers>
@@ -51,7 +51,7 @@
                     </VisualState.Storyboard>
                 </VisualState>
                 
-                <VisualState>
+                <VisualState x:Name="InlineState">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="800" />
                     </VisualState.StateTriggers>
@@ -78,7 +78,7 @@
                     </VisualState.Storyboard>
                 </VisualState>
 
-                <VisualState>
+                <VisualState x:Name="CompactInlineState">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="500" />
                     </VisualState.StateTriggers>
@@ -107,9 +107,9 @@
                     </VisualState.Storyboard>
                 </VisualState>
 
-                <VisualState>
+                <VisualState x:Name="CompactOverlayState">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="300" />
+                        <AdaptiveTrigger MinWindowWidth="300"  />
                     </VisualState.StateTriggers>
 
                     <VisualState.Setters>

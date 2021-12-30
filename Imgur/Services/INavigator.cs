@@ -6,6 +6,8 @@ namespace Imgur.Services
 {
     public interface INavigator
     {
+
+
         object RootFrame { get; set; }
 
         /// <summary>
@@ -14,34 +16,23 @@ namespace Imgur.Services
         /// </summary>
         object Frame { get; set; }
 
-        /// <summary>
-        /// Navigates to the screensaver.
-        /// </summary>
-        void ToScreensaver();
+
 
         /// <summary>
-        /// Navigates to the compact page.
-        /// </summary>
-        void ToCompact();
-
-        /// <summary>
-        /// Navigates to the upload page.
-        /// </summary>
-        void ToUploadPage();
-
-        /// <summary>
-        /// Navigates to the upload page.
+        /// Navigates to a frame Page inside the Shell.
         /// </summary>
         void Navigate(string name);
 
 
         /// <summary>
-        /// Navigates to the catalogue page.
+        /// Navigates to a outside shell page.
         /// </summary>
-        void ToCatalogue();
+        void RootNavigate(string name);
+
 
         bool CanGoBack();
 
+        void Close();
   
         /// <summary>
         /// Attempts to navigate back.

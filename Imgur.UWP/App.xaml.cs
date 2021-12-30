@@ -40,6 +40,7 @@ namespace Imgur.UWP
     {
 
         private static Frame AppFrame;
+        private static Rect AppBounds;
         private IServiceProvider _serviceProvider;
 
         public App()
@@ -76,7 +77,8 @@ namespace Imgur.UWP
                 }
             }
 
-      
+            AppBounds = ApplicationView.GetForCurrentView().VisibleBounds;
+
             if (prelaunched==false){
                 CoreApplication.EnablePrelaunch(true);
                 
@@ -86,11 +88,14 @@ namespace Imgur.UWP
 
                 HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 
+
                 Window.Current.Activate();
-                
+
+
+
+
             }
 
-           
 
             AppFrame = rootFrame;
             Services.GetRequiredService<INavigator>().RootFrame = rootFrame;
@@ -100,6 +105,8 @@ namespace Imgur.UWP
             //SetAppRequestedTheme();
         }
 
+
+        public static Rect AppStartBounds => AppBounds;
 
         private async void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e){
             e.Handled = true;
@@ -120,7 +127,8 @@ namespace Imgur.UWP
 
                 if (result != null && result.Label == "OK")
                 {
-                    Application.Current.Exit();
+                    Services.GetRequiredService<INavigator>().RootNavigate("shutdown");
+                    //Application.Current.Exit();
                 }
             }
         }
@@ -181,6 +189,8 @@ namespace Imgur.UWP
                 .AddTransient<SettingsViewModel>()
                 .AddTransient<ExplorerViewModel>()
                 .AddTransient<TagsViewModel>()
+                .AddTransient<ShutdownViewModel>()
+
                 .BuildServiceProvider(true);
             return provider;
         }

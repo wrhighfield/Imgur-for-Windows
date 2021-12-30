@@ -167,6 +167,9 @@
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ShutdownView.xaml.cs">
+      <DependentUpon>ShutdownView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\TagsView.xaml.cs">
       <DependentUpon>TagsView.xaml</DependentUpon>
     </Compile>
@@ -175,6 +178,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\app\giraffe_avatar.png" />
     <Content Include="Assets\app\sign_transparent.png" />
     <Content Include="Assets\fonts\fluentui.ttf" />
     <Content Include="Assets\fonts\segmdl2.ttf" />
@@ -243,6 +247,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ShellView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ShutdownView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

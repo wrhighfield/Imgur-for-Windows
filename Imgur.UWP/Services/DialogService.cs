@@ -15,7 +15,6 @@ namespace Imgur.UWP.Services
     {
 
         public static bool IsDialogOpen;
-        private ISystemInfoProvider _systemInfoProvider;
 
         public async Task OpenUploadAsync()
         {

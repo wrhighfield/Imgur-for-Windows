@@ -6,12 +6,15 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 
 namespace Imgur.UWP.Services
 {
     public class Navigator: INavigator{
+
+
 
         public object RootFrame { get; set; }
 
@@ -66,33 +69,27 @@ namespace Imgur.UWP.Services
                         if (f.Content.GetType() != typeof(SettingsView)){
                             f.Tag = name;
                             f.Navigate(typeof(SettingsView), null, new DrillInNavigationTransitionInfo());
-                        }                     
+                        }
+                        break;
+                   
+                }
+            }
+        }
+
+        public void RootNavigate(string name){
+            if (RootFrame is Frame f){
+                switch (name){
+                    case "shutdown":
+                        if (f.CurrentSourcePageType != typeof(ShutdownView)){
+                            Debug.WriteLine("Entrei");
+                            f.Navigate(typeof(ShutdownView), null, new DrillInNavigationTransitionInfo());
+                        }
                         break;
                 }
             }
         }
 
-        /// <inheritdoc/>
-        public void ToScreensaver()
-        {
-            /*
-            if (RootFrame is Frame f && f.CurrentSourcePageType != typeof(ScreensaverPage))
-            {
-                f.Navigate(typeof(ScreensaverPage), null, new DrillInNavigationTransitionInfo());
-            }
-            */
-        }
 
-        /// <inheritdoc/>
-        public void ToCatalogue()
-        {
-            /*
-            if (Frame is Frame f)
-            {
-                f.Navigate(typeof(CataloguePage), null, new SuppressNavigationTransitionInfo());
-            }
-            */
-        }
 
         public bool CanGoBack(){
             if (Frame is Frame f && f.CanGoBack)
@@ -106,31 +103,8 @@ namespace Imgur.UWP.Services
         }
 
 
-        /// <inheritdoc/>
-        public async void ToCompact()
-        {
-            /*
-            if (Frame is Frame f)
-            {
-                // Ref: https://programmer.group/uwp-use-compact-overlay-mode-to-always-display-on-the-front-end.html
-                var preferences = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
-                preferences.CustomSize = new Windows.Foundation.Size(360, 500);
-                await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, preferences);
-                f.Navigate(typeof(CompactPage), null, new SuppressNavigationTransitionInfo());
-            }
-            */
+        public void Close(){
+            Application.Current.Exit();
         }
-
-        /// <inheritdoc/>
-        public void ToUploadPage()
-        {
-            /*
-            if (Frame is Frame f)
-            {
-                f.Navigate(typeof(UploadPage), null, new DrillInNavigationTransitionInfo());
-            }
-            */
-        }
-
     }
 }
