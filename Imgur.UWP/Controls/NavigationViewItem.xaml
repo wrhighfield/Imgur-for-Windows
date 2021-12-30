@@ -29,8 +29,8 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <FontIcon x:Name="ItemIcon" Visibility="Visible"  Grid.Column="0" FontSize="20" Width="38"  FontWeight="Normal" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="{Binding FontIcon, ElementName=NavigationViewItemControl}" Foreground="#7b7b7b" Glyph="{Binding Icon,ElementName=NavigationViewItemControl,FallbackValue = '&#xE7FC;'}"/>
-                        <TextBlock x:Name="ItemLabel" Margin="10,0,10,0" Visibility="Visible"  Grid.Column="1" VerticalAlignment="Center" FontSize="14" FontWeight="SemiBold" Text="{Binding Text ,ElementName=NavigationViewItemControl,FallbackValue='Navigation Item'}" Opacity="0.7" />
+                        <FontIcon x:Name="ItemIcon" Visibility="Visible"  Grid.Column="0" FontSize="20" Width="38"  FontWeight="Normal"  HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="{Binding FontIcon, ElementName=NavigationViewItemControl}" Foreground="#7b7b7b" Glyph="{Binding Icon,ElementName=NavigationViewItemControl,FallbackValue = '&#xE7FC;'}"/>
+                        <TextBlock x:Name="ItemLabel"  Margin="10,0,10,0" Visibility="Visible"  Grid.Column="1" VerticalAlignment="Center" FontSize="14" FontWeight="SemiBold" Text="{Binding Text ,ElementName=NavigationViewItemControl,FallbackValue='Navigation Item'}" Opacity="0.7" />
                         <Interactivity:Interaction.Behaviors>
                             <Core:EventTriggerBehavior EventName="PointerEntered">
                                 <Core:ChangePropertyAction TargetObject="{Binding ElementName=ItemCard}" PropertyName="Background" Value="{ThemeResource AcrylicInAppFillColorDefaultBrush}"></Core:ChangePropertyAction>

@@ -283,7 +283,7 @@
                 
                 <SplitView.Content>
                     <!-- Navigation Frame Content -->
-                    <ContentPresenter Margin="0,50,0,10" x:Name="contentPanel" Content="{x:Bind NavigationContent, Mode=OneWay}" />
+                    <ContentPresenter Margin="0,50,0,10" x:Name="contentPanel"  Content="{x:Bind NavigationContent, Mode=OneWay}" />
                 </SplitView.Content>
             </SplitView>
         </Grid>
