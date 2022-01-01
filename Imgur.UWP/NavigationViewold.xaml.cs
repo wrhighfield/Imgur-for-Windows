@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -18,13 +19,16 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Imgur.UWP.Controls
 {
-    public sealed partial class NavigationViewItem : UserControl
+    public sealed partial class NavigationViewOld: UserControl
     {
-        public NavigationViewItem()
+        public NavigationViewOld()
         {
-            this.InitializeComponent();
+           // this.InitializeComponent();
             IsSelected = false;
+            
         }
+
+
 
 
         public object CommandParameter
@@ -35,7 +39,7 @@ namespace Imgur.UWP.Controls
 
         // Using a DependencyProperty as the backing store for CommandParameter.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandParameterProperty =
-            DependencyProperty.Register("CommandParameter", typeof(object), typeof(NavigationViewItem), new PropertyMetadata(0));
+            DependencyProperty.Register("CommandParameter", typeof(object), typeof(NavigationViewOld), new PropertyMetadata(0));
 
 
 
@@ -47,7 +51,10 @@ namespace Imgur.UWP.Controls
 
         // Using a DependencyProperty as the backing store for Command.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CommandProperty =
-            DependencyProperty.Register("Command", typeof(ICommand), typeof(NavigationViewItem), new PropertyMetadata(0));
+            DependencyProperty.Register("Command", typeof(ICommand), typeof(NavigationViewOld), new PropertyMetadata(0));
+
+
+
 
         public object Icon
         {
@@ -57,7 +64,34 @@ namespace Imgur.UWP.Controls
 
         // Using a DependencyProperty as the backing store for Icon.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IconProperty =
-            DependencyProperty.Register("Icon", typeof(object), typeof(NavigationViewItem), new PropertyMetadata(0));
+            DependencyProperty.Register("Icon", typeof(object), typeof(NavigationViewOld), new PropertyMetadata(0));
+
+
+
+        public bool IsSelected
+        {
+            get { return (bool)GetValue(IsSelectedProperty); }
+            set {
+                    SetValue(IsSelectedProperty, value);
+                    UpdateState();
+                }
+        }
+
+        private void UpdateState(){
+            Debug.WriteLine("UpdatedInside");
+
+            if (IsSelected){
+          //      VisualStateManager.GoToState(this, nameof(SelectedState), false);
+            }else{
+            //    VisualStateManager.GoToState(this, nameof(UnselectedState), false);
+            }
+        }
+
+
+        // Using a DependencyProperty as the backing store for IsSelected.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsSelectedProperty =
+            DependencyProperty.Register("IsSelected", typeof(bool), typeof(NavigationViewOld), new PropertyMetadata(0));
+
 
 
         public string Text
@@ -66,10 +100,11 @@ namespace Imgur.UWP.Controls
             set { SetValue(TextProperty, value); }
         }
 
+        
 
         // Using a DependencyProperty as the backing store for Text.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(NavigationViewItem), new PropertyMetadata(0));
+            DependencyProperty.Register("Text", typeof(string), typeof(NavigationViewOld), new PropertyMetadata(0));
 
 
 
@@ -81,33 +116,12 @@ namespace Imgur.UWP.Controls
 
         // Using a DependencyProperty as the backing store for FontIcon.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty FontIconProperty =
-            DependencyProperty.Register("FontIcon", typeof(FontFamily), typeof(NavigationViewItem), new PropertyMetadata(0));
+            DependencyProperty.Register("FontIcon", typeof(FontFamily), typeof(NavigationViewOld), new PropertyMetadata(0));
 
-
-
-        public bool IsSelected{
-            get { return (bool)GetValue(IsSelectedProperty); }
-            set {
-                SetValue(IsSelectedProperty, value);
-                UpdateState();
-            }
+        private void SelectClick(object sender, RoutedEventArgs e)
+        {
+            IsSelected = true;
         }
-
-
-        private void UpdateState(){
-            if (IsSelected){
-                 VisualStateManager.GoToState(this, nameof(SelectedState), true);
-            }else{
-               VisualStateManager.GoToState(this, nameof(UnselectedState), true);
-            }
-        }
-
-
-        // Using a DependencyProperty as the backing store for IsSelected.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IsSelectedProperty =
-            DependencyProperty.Register("IsSelected", typeof(bool), typeof(NavigationViewItem), new PropertyMetadata(0));
-
-
 
     }
 }

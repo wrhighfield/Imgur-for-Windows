@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Imgur.ViewModels
 {
@@ -34,11 +35,27 @@ namespace Imgur.ViewModels
             _navigator = navigator;
         }
 
-        public async void InitializeAsync()
+        public async Task InitializeAsync()
         {
             Loading = true;
             await Task.Delay(3000);
             Loading = false;
         }
+
+
+        private ICommand _refreshViewCommand;
+
+        public ICommand RefreshViewCommand
+        {
+            get
+            {
+                if (_refreshViewCommand == null)
+                {
+                    _refreshViewCommand = new RelayCommand(async () => await InitializeAsync());
+                }
+                return _refreshViewCommand;
+            }
+        }
+
     }
 }

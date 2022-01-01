@@ -1,4 +1,6 @@
 ﻿using Imgur.Helpers;
+using Imgur.Services;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -32,19 +34,18 @@ namespace Imgur.UWP.Controls
 
         private void Load(){
 
-            Window.Current.SetTitleBar(titlePanel);
             IsPaneOpen = false;
 
-            //Fix for mobile
-            switch (AnalyticsInfo.VersionInfo.DeviceFamily){
-                case "Windows.Mobile":
-                    IsTitleBarPresent = false;
-                    break;
-                default:
-                    IsTitleBarPresent = true;
-                    break;
-            }           
+            if (App.Services.GetRequiredService<ISystemInfoProvider>().IsMobile() || App.Services.GetRequiredService<ISystemInfoProvider>().IsXbox()){
+                IsTitleBarPresent = false;
+            }else{
+                IsTitleBarPresent = true;
+                Window.Current.SetTitleBar(titlePanel);
+                SearchBox.Margin = new Thickness(140, 0, 140, 0);
+            }
         }
+
+        
         
         public bool IsTitleBarPresent { get; set; }
 
@@ -173,18 +174,9 @@ namespace Imgur.UWP.Controls
         public static readonly DependencyProperty HeaderNeedsAdjustProperty =
             DependencyProperty.Register("HeaderNeedsAdjust", typeof(bool), typeof(NavigationView), new PropertyMetadata(0));
 
-
-
-
-        private void HeaderButton_Click(object sender, RoutedEventArgs e)
-        {
-           // IsPaneOpen = !IsPaneOpen;
-        }
-
-        private void NavigationViewControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            switch (App.AppStartBounds.Width)
-            {
+        //Set State Trigger when App Starts
+        private void NavigationViewControl_Loaded(object sender, RoutedEventArgs e){
+            switch (App.AppStartBounds.Width){
                 case double w when (w > 800 && w < 1200):
                     VisualStateManager.GoToState(this, nameof(InlineState), false);
                     break;
@@ -194,6 +186,4 @@ namespace Imgur.UWP.Controls
             }
         }
     }
-
-
 }

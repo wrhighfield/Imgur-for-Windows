@@ -44,7 +44,6 @@ namespace Imgur.UWP.Views
         {
             var navigator = App.Services.GetRequiredService<INavigator>();
             navigator.Frame = MainFrame;
-            Debug.WriteLine("Yoopisie");
             MainFrame.Navigate(typeof(ExplorerView));
         }
 
