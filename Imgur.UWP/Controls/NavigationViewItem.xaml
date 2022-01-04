@@ -16,7 +16,7 @@
 
 
     <Grid>
-        <Button x:Name="NavigationButton" Style="{StaticResource GlowUnSelectedButtonStyle}" Margin="8,4,8,4" Height="42" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" CommandParameter="{Binding CommandParameter,ElementName=NavigationViewItemControl}" Command="{Binding Command,ElementName=NavigationViewItemControl}">
+        <Button x:Name="NavigationButton" Style="{StaticResource GlowUnSelectedButtonStyle}" Margin="8,4,8,4" Height="42" Windows10version1809:CornerRadius="5" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" CommandParameter="{Binding CommandParameter,ElementName=NavigationViewItemControl}" Command="{Binding Command,ElementName=NavigationViewItemControl}">
             <Grid Opacity="0.9">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="38" />

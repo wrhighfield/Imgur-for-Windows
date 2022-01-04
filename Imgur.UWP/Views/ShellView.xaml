@@ -18,7 +18,7 @@
         <controls:NavigationView >
             <controls:NavigationView.HeaderContent>
 
-                <Grid x:Name="customHeader" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,0,0" Height="40">
+                <Grid x:Name="customHeader" Grid.Column="1" VerticalAlignment="Center" Margin="-10,0,0,0" Height="40">
                     <StackPanel Orientation="Horizontal"  HorizontalAlignment="Left">
                         <Image Height="24"  Source="ms-appx:///Assets/App/logo_transparent.png" />
                         <Image Height="20" VerticalAlignment="Center" Margin="5,3,0,0"  Source="ms-appx:///Assets/App/sign_transparent.png" />

@@ -71,7 +71,12 @@ namespace Imgur.UWP.Services
                             f.Navigate(typeof(SettingsView), null, new DrillInNavigationTransitionInfo());
                         }
                         break;
-                   
+                    case "media":
+                        f.Tag = name;
+                        f.Navigate(typeof(MediaView), null, new DrillInNavigationTransitionInfo());
+                      
+                        break;
+
                 }
             }
         }

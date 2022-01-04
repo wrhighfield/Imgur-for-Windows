@@ -99,25 +99,23 @@ namespace Imgur.UWP
 
             AppFrame = rootFrame;
             Services.GetRequiredService<INavigator>().RootFrame = rootFrame;
-            CustomizeTitleBar(false);
+            CustomizeTitleBar(true);
             await SetAppBarAsync();
             this.FocusVisualKind = FocusVisualKind.Reveal;
             //SetAppRequestedTheme();
         }
 
 
+        //Get App Width and Height
         public static Rect AppStartBounds => AppBounds;
 
+
+        //Hardware Buttons Event for Mobile
         private async void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e){
             e.Handled = true;
-            /*
-            Navigator NavService = Services.GetRequiredService<Navigator>();
-            */
             if (Services.GetRequiredService<INavigator>().CanGoBack()){
                 Services.GetRequiredService<INavigator>().GoBack();
-            }
-            else
-            {
+            }else{
                 var msg = new MessageDialog("Confirm Close");
                 var okBtn = new UICommand("OK");
                 var cancelBtn = new UICommand("Cancel");
@@ -128,13 +126,12 @@ namespace Imgur.UWP
                 if (result != null && result.Label == "OK")
                 {
                     Services.GetRequiredService<INavigator>().RootNavigate("shutdown");
-                    //Application.Current.Exit();
                 }
             }
         }
 
 
-
+        //Service Provider
         public static IServiceProvider Services
         {
             get
@@ -150,6 +147,9 @@ namespace Imgur.UWP
             }
         }
         
+
+
+
         private void CustomizeTitleBar(bool darkTheme)
         {
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
@@ -157,7 +157,7 @@ namespace Imgur.UWP
             var viewTitleBar = ApplicationView.GetForCurrentView().TitleBar;
             viewTitleBar.ButtonBackgroundColor = Colors.Transparent;
             viewTitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-            viewTitleBar.ButtonForegroundColor = darkTheme ? Colors.LightGray : Colors.Black;
+            viewTitleBar.ButtonForegroundColor = darkTheme ? Colors.White : Colors.Black;
         }
 
         private async Task SetAppBarAsync(){
@@ -183,6 +183,8 @@ namespace Imgur.UWP
                 .AddSingleton<IDialogService, DialogService>()
                 .AddSingleton<ISystemInfoProvider, SystemInfoProvider>()
                 .AddSingleton<ILocalSettings, LocalSettings>()
+                .AddSingleton<IAPIConsumption, ApiConsumption>()
+                .AddSingleton<IAppSettings, AppSettings>()
 
                 // If ViewModel use Transitent
                 .AddTransient<ShellViewModel>()

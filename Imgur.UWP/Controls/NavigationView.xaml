@@ -36,6 +36,7 @@
                         <Setter Target="headerButton.Visibility" Value="Collapsed" />
                         <Setter Target="headerButton.Margin" Value="4" />
                         <Setter Target="headerContent.HorizontalAlignment" Value="Center" />
+                        <Setter Target="headerContent.Margin" Value="0,0,0,0" />
                         <Setter Target="contentPanel.Margin" Value="15,45,0,0" />
                         <Setter Target="SearchPane.Visibility" Value="Collapsed" />
                         <Setter Target="SearchBox.Visibility" Value="Visible" />
@@ -83,7 +84,7 @@
                     <VisualState.Setters>
                         <Setter Target="SplitView.IsPaneOpen" Value="False" />
                         <Setter Target="SplitView.DisplayMode" Value="CompactInline" />
-                        <Setter Target="contentPanel.Margin" Value="15,50,0,0" />
+                        <Setter Target="contentPanel.Margin" Value="5,50,0,0" />
                         <Setter Target="headerPanel.Margin" Value="4,9,0,0" />
                         <Setter Target="headerFooter.Visibility" Value="Collapsed" />
                         <Setter Target="headerButton.Visibility" Value="Visible" />
@@ -131,17 +132,28 @@
                                     <BackEase/>
                                 </DoubleAnimation.EasingFunction>
                             </DoubleAnimation>
-
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="StaticTransform" Storyboard.TargetProperty="Y">
                                 <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="-25"/>
                             </ObjectAnimationUsingKeyFrames>
-
-
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BasePanel" Storyboard.TargetProperty="Margin">
                                 <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{Binding IsTitleBarPresent ,ElementName=NavigationViewControl,Converter={StaticResource BoolValueConverter},ConverterParameter='0,24,0,0|0'}"/>
                             </ObjectAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualState.Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+
+            <VisualStateGroup x:Uid="HeadersStateGroup">
+                <VisualState x:Name="PaneHeaderOpen">
+                    <VisualState.Setters>
+
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="PaneHeaderClosed">
+                    <VisualState.Setters>
+
+                    </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>

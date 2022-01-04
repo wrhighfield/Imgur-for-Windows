@@ -5,15 +5,65 @@
     xmlns:local="using:Imgur.UWP.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:winui="using:Windows.UI.Xaml.Controls"
     xmlns:controls="using:Imgur.UWP.Controls"
     xmlns:Windows10FallCreatorsUpdate="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 5)"
     xmlns:Windows10version1803="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 6)"
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
+    xmlns:controls1="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="Transparent">
-    
 
 
+    <Page.Resources>
+        <winui:StackLayout x:Name="VerticalStackLayout" Orientation="Vertical"   Spacing="5"/>
+
+        <winui:UniformGridLayout x:Key="UniformGridLayout2" MinItemWidth="300" MinItemHeight="220" MaximumRowsOrColumns="6" MinColumnSpacing="5"  ItemsStretch="Uniform"
+                   MinRowSpacing="5" />
+
+
+        <DataTemplate x:Key="PhotosTemplate">
+            <Grid
+                Background="White"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                
+                BorderBrush="Black"
+                BorderThickness="1">
+                
+            </Grid>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="HorizontalBarTemplate">
+            <Button    Style="{x:Null}"  Command="{Binding NavigateMediaCommand}" BorderBrush="Transparent" MinWidth="200" MinHeight="170" Windows10version1809:CornerRadius="3" Opacity="0.9"  HorizontalAlignment="Stretch"  HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch"  VerticalContentAlignment="Stretch" Padding="-1" BorderThickness="0">
+                
+                <Grid Background="Black"  CornerRadius="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition  />
+                        <RowDefinition MaxHeight="90"  />
+
+                    </Grid.RowDefinitions>
+
+                    <controls1:ImageEx Stretch="UniformToFill"  Grid.RowSpan="1"    Source="https://i.imgur.com/NWvAPJB_d.png?maxwidth=200" />
+
+
+
+                    <Grid Grid.Row="1" Background="Black" CornerRadius="0,0,3,3" Opacity="1">
+                        <TextBlock Grid.Row="1" Text="{Binding Name}"></TextBlock>
+
+                    </Grid>
+                </Grid>
+   
+            </Button>
+        </DataTemplate>
+
+
+
+
+
+    </Page.Resources>
     <Grid x:Name="RootGrid" Margin="0,10,0,0">
 
         <!-- Navigation View Adapters -->
@@ -26,6 +76,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="ContentSeparator.Visibility" Value="Collapsed" />
+
                     </VisualState.Setters>
                     <VisualState.Storyboard>
                         <Storyboard>
@@ -39,8 +90,12 @@
                         <AdaptiveTrigger MinWindowWidth="500" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
+                        <Setter Target="ContentSeparator.Visibility" Value="Visible" />
+
                         <Setter Target="SortLabel.Visibility" Value="Visible" />
                         <Setter Target="SortBox.IsCompact" Value="False" />
+
+
 
                     </VisualState.Setters>
                     <VisualState.Storyboard>
@@ -59,9 +114,6 @@
                         <Setter Target="NavigationBar.Visibility" Value="Visible" />
                          <Setter Target="SortBox.IsCompact" Value="False" />
                         <Setter Target="BottomNavigationBar.Visibility" Value="Collapsed" />
-
-
-
                     </VisualState.Setters>
                     <VisualState.Storyboard>
                         <Storyboard>
@@ -79,9 +131,9 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-
-
-
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
             <Grid  x:Name="CommandBar" Margin="3,0,8,0" HorizontalAlignment="Stretch" Padding="5,5,0,0" Height="75">
 
@@ -91,10 +143,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 
-                <StackPanel  x:Name="ContentSeparator" Opacity="0.9"  Visibility="Visible" VerticalAlignment="Top" Height="2" Grid.ColumnSpan="3"> 
-                    <Border HorizontalAlignment="Stretch" Background="#1f2123" Height="1.1" CornerRadius="3,3,0,0" />
-                    <Border HorizontalAlignment="Stretch" Background="#464b57" Height="1.1" CornerRadius="0,0,3,3"  />
-                </StackPanel>
+
 
                 <StackPanel x:Name="NavigationBar" Orientation="Horizontal" Grid.Row="0" Visibility="Collapsed" Margin="0,0,5,0" VerticalAlignment="Center" >
                     <Button Style="{StaticResource ButtonRevealStyle}" Background="#37373b" Width="34" Height="34" Padding="0" Command="{Binding RefreshViewCommand}" >
@@ -110,15 +159,22 @@
                 
                 <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" ToolTipService.ToolTip="Gallery">
                     <TextBlock x:Name="AlbumLabel" Visibility="Collapsed" VerticalAlignment="Center" FontSize="12" FontWeight="Bold" Margin="0,0,10,0" Foreground="#7b7b7b">ALBUM:</TextBlock>
-                    <ComboBox Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Height="35"  Background="#34373b" BorderBrush="#45484c">
+                    <ComboBox Width="160" HorizontalAlignment="Left" VerticalAlignment="Center" Height="35"  Background="#34373b" BorderBrush="#45484c" ItemsSource="{Binding RetrievedGalleries}" SelectedIndex="{Binding SelectedGallery,Mode=TwoWay,FallbackValue=-1}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <FontIcon Glyph="&#xF133;" />
-                                    <TextBlock Text="Item" />
+                                    <FontIcon Glyph="{Binding Glyph,FallbackValue='&#xEC24;'}" FontSize="14" VerticalAlignment="Center"  FontFamily="{StaticResource SegoeMDLGlyphs}"  />
+                                    <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Text="{Binding Name}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
+
+
+                        <Interactivity:Interaction.Behaviors>
+                            <Core:EventTriggerBehavior EventName="SelectionChanged">
+                                <Core:InvokeCommandAction Command="{Binding RefreshViewCommand}" />
+                            </Core:EventTriggerBehavior>
+                        </Interactivity:Interaction.Behaviors>
                     </ComboBox>                
                 </StackPanel>
                 
@@ -130,22 +186,92 @@
                     <controls:SelectorButtonFlyout x:Name="SortBox" IsCompact="True" VerticalAlignment="Center"></controls:SelectorButtonFlyout>
                 </StackPanel>
 
+                <StackPanel  x:Name="ContentSeparator" Opacity="0.9"  Visibility="Visible" Margin="0,0,0,0" VerticalAlignment="Top" Height="2" Grid.ColumnSpan="3">
+                    <Border HorizontalAlignment="Stretch" Background="#1f2123" Height="1.1" CornerRadius="3,3,0,0" />
+                    <Border HorizontalAlignment="Stretch" Background="#464b57" Height="1.1" CornerRadius="0,0,3,3"  />
+                </StackPanel>
+                
                 <StackPanel  Opacity="0.9" Visibility="Visible" VerticalAlignment="Bottom" Height="2" Grid.ColumnSpan="3">
                     <Border HorizontalAlignment="Stretch" Background="#1f2123" Height="1.1" CornerRadius="3,3,0,0" />
                     <Border HorizontalAlignment="Stretch" Background="#464b57" Height="1.1" CornerRadius="0,0,3,3"  />
                 </StackPanel>
             </Grid>
 
-            <ScrollViewer HorizontalAlignment="Stretch" Grid.Row="1">
+            <controls:MediaGrid Grid.Row="1" DataSource="{Binding RetrievedGalleries}" SelectCommand="{Binding NavigateMediaCommand}" Margin="0,5,0,0" />
 
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Loaded Data Placeholder (Only for Test)!</TextBlock>
 
-            </ScrollViewer>
+            <!-- Deprecated 
+            <GridView x:Name="GridView" ItemsSource="{Binding RetrievedGalleries}" Visibility="Collapsed">
+                <GridView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalAlignment="Stretch"  Background="Blue" CornerRadius="5" Margin="3">
+                            <Image Stretch="Uniform"  Source="https://i.imgur.com/NWvAPJB_d.webp?maxwidth=520"></Image>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Margin="10" VerticalAlignment="Bottom" x:Name="BottomNavigationBar" Visibility="Visible">
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <controls1:StaggeredPanel DesiredColumnWidth="250"
+                                                  
+                                             HorizontalAlignment="Stretch"
+                                            />
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+            </GridView>
+
+            <controls1:AdaptiveGridView Name="AdaptiveGridViewControl"  Visibility="Collapsed"
+                                   OneRowModeEnabled="False"
+                                    VerticalContentAlignment="Stretch"
+   
+                                   DesiredWidth="300"
+                                        StretchContentForSingleRow="False"
+                                       
+                                   SelectionMode="Single"
+                                   IsItemClickEnabled="True"
+                                        ItemsSource="{Binding RetrievedGalleries}"
+                                   ItemTemplate="{StaticResource PhotosTemplate}"/>
+
+            <GridView ItemsSource="{Binding RetrievedGalleries}" Visibility="Collapsed" Grid.Row="1">
+                <GridView.ItemTemplate>
+                    <DataTemplate x:Name="ImageOverlayTemplate">
+                        <Grid  Background="Blue" CornerRadius="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                            
+                            
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+                <GridView.ItemContainerStyle>
+                    <Style TargetType="GridViewItem">
+                        <Setter Property="Margin" Value="5, 5, 5, 5"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                        <Setter Property="VerticalAlignment" Value="Stretch"/>
+                    </Style>
+                </GridView.ItemContainerStyle>
+
+
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+
+                  
+                        <ItemsWrapGrid x:Name="MaxItemsWrapGrid"
+                           MaximumRowsOrColumns="8"
+
+                           Orientation="Horizontal"
+                                       ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                                       VerticalAlignment="Stretch"
+                                   HorizontalAlignment="Stretch"
+                                   /> 
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+            </GridView>
+            -->
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Margin="10" VerticalAlignment="Bottom" x:Name="BottomNavigationBar" Visibility="Visible">
                 <Button Style="{StaticResource CircleButtonStyle}" Background="{StaticResource SystemControlBackgroundAccentBrush}" Command="{Binding RefreshViewCommand}" Width="48" Height="48" ToolTipService.ToolTip="Refresh Gallery">
                     <FontIcon Visibility="Visible" Grid.Column="0" FontSize="18" FontWeight="Normal"  VerticalAlignment="Center" FontFamily="{StaticResource SegoeMDLGlyphs}" Foreground="WhiteSmoke" Glyph="&#xE72C;"/>
-
                 </Button>
                 <Button Style="{StaticResource CircleButtonStyle}" Background="{StaticResource SystemControlBackgroundAccentBrush}" Width="48" Height="48" IsEnabled="False" ToolTipService.ToolTip="Move to the top"   Margin="10,0,0,0">
                     <FontIcon Visibility="Visible"  Grid.Column="0" FontSize="18" FontWeight="Normal" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="{StaticResource SegoeMDLGlyphs}" Foreground="WhiteSmoke" Glyph="&#xE898;"/>

@@ -8,4 +8,23 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Imgur\Imgur.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ApiSettings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ApiSettings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="ApiSettings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ApiSettings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>
