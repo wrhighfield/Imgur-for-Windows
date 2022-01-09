@@ -36,7 +36,7 @@ namespace Imgur.UWP.Views
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-             ViewModel.InitializeAsync();
+             await ViewModel.InitializeAsync();
         }
     }
 }

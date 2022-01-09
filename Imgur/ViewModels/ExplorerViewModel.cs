@@ -29,10 +29,14 @@ namespace Imgur.ViewModels
                 if (_refreshViewCommand == null)
                 {
                     _refreshViewCommand = new RelayCommand(async () => {
-                        Loading = true;
-                        await LoadGalleryContent();
-                        Loading = false;
-
+                        if (!Loading) {
+                            Loading = true;
+                            await LoadGalleryContent();
+                            await Task.Delay(3000);
+                            Loading = false;
+                        }else{
+                            return;
+                        }
                     });
                 }
                 return _refreshViewCommand;
@@ -41,7 +45,7 @@ namespace Imgur.ViewModels
 
 
         //Vars
-        private ObservableCollection<Category> _retrievedGalleries;
+        private ObservableCollection<Category> _retrievedGalleries = new ObservableCollection<Category>();
         public ObservableCollection<Category> RetrievedGalleries
         {
             get { return _retrievedGalleries; }
@@ -50,10 +54,10 @@ namespace Imgur.ViewModels
                 _retrievedGalleries = value;
                 OnPropertyChanged("RetrievedGalleries");
             }
-        }
+        } 
 
 
-        private ObservableCollection<Category> _retrievedSort;
+        private ObservableCollection<Category> _retrievedSort = new ObservableCollection<Category>();
         public ObservableCollection<Category> RetrievedSort{
             get { return _retrievedSort; }
             set{
@@ -63,21 +67,17 @@ namespace Imgur.ViewModels
         }
 
 
-        private ObservableCollection<Category> _retrievedMedia;
-        public ObservableCollection<Category> RetrievedMedia
+        private ObservableCollection<Media> _retrievedMedia = new ObservableCollection<Media>();
+        public ObservableCollection<Media> RetrievedMedia
         {
             get { return _retrievedMedia; }
             set
             {
                 _retrievedMedia = value;
+                Debug.WriteLine("atualizeicoleecao");
                 OnPropertyChanged("RetrievedMedia");
             }
         }
-
-
-        // private ObservableCollection<DataRead> _retrievedImages;
-
-
 
         private bool _loading;
 
@@ -101,7 +101,17 @@ namespace Imgur.ViewModels
             }
         }
 
+        private int _selectedSort;
 
+        public int SelectedSort
+        {
+            get { return _selectedSort; }
+            set
+            {
+                _selectedSort = value;
+                OnPropertyChanged("SelectedSort");
+            }
+        }
 
         //Constructor
         public ExplorerViewModel(INavigator navigator,IAPIConsumption apiconsumption){
@@ -111,21 +121,44 @@ namespace Imgur.ViewModels
 
         public async Task InitializeAsync(){
 
+            //If already loaded just ignore 
+            if ((RetrievedGalleries.Count > 0 && RetrievedSort.Count > 0) || Loading){
+                return;
+            }
+            
+
+            Debug.WriteLine("A");
+
             Loading = true;
 
-            if ((RetrievedGalleries = new ObservableCollection<Category>(_apiconsumption.GetExplorerGalleries())).Count > 0){ SelectedGallery = 0; }
-            //if ((RetrievedSort = new ObservableCollection<Category>(_apiconsumption.GetExplorerSort())).Count > 0) { SelectedGallery = 0; }
+            //Retrieve Basic Sort Data (Only Once)
+            try{
+                if ((RetrievedGalleries = new ObservableCollection<Category>(_apiconsumption.GetExplorerGalleries())).Count > 0) { SelectedGallery = 0; }
+                if ((RetrievedSort = new ObservableCollection<Category>(_apiconsumption.GetExplorerSort())).Count > 0) { SelectedSort = 0; }
+            }catch (Exception e){
+                Debug.WriteLine(e);
+                Loading = false;
+                return;
+            }
 
             //Load Gallery Content
-
+            await Task.Delay(1000);
             await LoadGalleryContent();
-            Loading = false;
-
+            await Task.Delay(3000);
+            Loading = false;          
         }
 
 
         public async Task LoadGalleryContent(){
-            await Task.Delay(3000);
+            Response ExplorerMediaResponse = await _apiconsumption.GetExplorerMedia(SelectedGallery, SelectedSort);
+
+            //Reset RetrievedMedia
+            RetrievedMedia.Clear();
+        
+            if (ExplorerMediaResponse.Success){
+                await Task.Delay(1000);
+                RetrievedMedia = new ObservableCollection<Media>((List<Media>)ExplorerMediaResponse.Data);
+            }
         }
 
 
@@ -136,7 +169,6 @@ namespace Imgur.ViewModels
             get{
                 if (_navigateMediaCommand == null){
                     _navigateMediaCommand = new RelayCommand(() => {
-                        Debug.WriteLine("Entrei");
                         _navigator.Navigate("media");
                     
                     });

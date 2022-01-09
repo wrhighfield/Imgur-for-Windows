@@ -197,7 +197,7 @@
                 </StackPanel>
             </Grid>
 
-            <controls:MediaGrid Grid.Row="1" DataSource="{Binding RetrievedGalleries}" SelectCommand="{Binding NavigateMediaCommand}" Margin="0,5,0,0" />
+            <controls:MediaGrid Grid.Row="1" DataSource="{Binding RetrievedMedia,Mode=TwoWay}" SelectCommand="{Binding NavigateMediaCommand}" Margin="0,5,0,0" />
 
 
             <!-- Deprecated 
