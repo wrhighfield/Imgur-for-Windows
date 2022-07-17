@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Imgur.Services;
+using Imgur.UWP.Services;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -25,6 +28,17 @@ namespace Imgur.UWP.Controls
         public MediaCard()
         {
             this.InitializeComponent();
+            /*
+            ISystemInfoProvider systeminfo = (ISystemInfoProvider)App.Services.GetService(typeof(ISystemInfoProvider));
+
+            if(systeminfo.IsMobile()){
+                Debug.WriteLine("Mobile");
+            }
+            else
+            {
+                Debug.WriteLine("pc");
+            }
+            */
         }
     }
 }

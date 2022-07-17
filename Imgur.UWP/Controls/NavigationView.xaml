@@ -174,7 +174,7 @@
 
             <!-- HeaderPanel for NavigationView -->
             <Grid x:Name="headerBackground" Height="48" VerticalAlignment="Top" Canvas.ZIndex="0" />
-            <Grid x:Name="headerPanel" VerticalAlignment="Top" Height="48" Opacity="0.9"  HorizontalAlignment="Stretch" Padding="4,4,0,0" Canvas.ZIndex="2">
+            <Grid x:Name="headerPanel" VerticalAlignment="Top" Height="48" Opacity="1"  HorizontalAlignment="Stretch" Padding="4,4,0,0" Canvas.ZIndex="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition x:Name="headerLeft" Width="auto"  />
@@ -232,7 +232,7 @@
                 </ContentPresenter>
 
                 <!-- HeaderContent Search -->
-                <AutoSuggestBox QueryIcon="Find"  x:Name="SearchBox"  Visibility="Collapsed" Grid.Column="2" PlaceholderText="Images, #tags, @users oh my!"  Margin="20,0,20,0"  HorizontalAlignment="Stretch" VerticalAlignment="Top"></AutoSuggestBox>
+                <AutoSuggestBox QueryIcon="Find" BorderBrush="#1e2022" BorderThickness="1.2" FocusVisualSecondaryBrush="BlueViolet"  x:Name="SearchBox" Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"  Visibility="Collapsed" Grid.Column="2" PlaceholderText="Images, #tags, @users oh my!"  Margin="20,0,20,0"  HorizontalAlignment="Stretch" VerticalAlignment="Top"></AutoSuggestBox>
                 
 
             
@@ -279,8 +279,7 @@
                                     </Core:EventTriggerBehavior>
                                 </Interactivity:Interaction.Behaviors>
                             </Button>
-                            <AutoSuggestBox QueryIcon="Find" x:Name="PaneSearchBox" Visibility="{Binding IsPaneOpen,ElementName=SplitView}"  Margin="10,0,10,0" Grid.Column="2" PlaceholderText="Images, #tags, @users oh my!"  Opacity="0.9"  HorizontalAlignment="Stretch"></AutoSuggestBox>
-
+                            <AutoSuggestBox QueryIcon="Find"  BorderBrush="#1e2022" BorderThickness="1.2" Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}" x:Name="PaneSearchBox" Visibility="{Binding IsPaneOpen,ElementName=SplitView}"  Margin="10,0,10,0" Grid.Column="2" PlaceholderText="Images, #tags, @users oh my!"  Opacity="0.9"  HorizontalAlignment="Stretch"></AutoSuggestBox>
                         </Grid>
                         <ScrollViewer  Grid.Row="1">
                             <ContentPresenter Margin="0,0,0,0"  Content="{x:Bind NavigationItems, Mode=OneWay}" />
@@ -293,7 +292,7 @@
                 
                 <SplitView.Content>
                     <!-- Navigation Frame Content -->
-                    <ContentPresenter Margin="0,50,0,10" x:Name="contentPanel"  Content="{x:Bind NavigationContent, Mode=OneWay}" />
+                    <ContentPresenter Margin="0,50,0,10" x:Name="contentPanel" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Content="{x:Bind NavigationContent, Mode=OneWay}" />
                 </SplitView.Content>
             </SplitView>
         </Grid>

@@ -80,12 +80,11 @@ namespace Imgur.UWP.Services
                         }
 
                         Images.Add(MediaObject);
-                        Debug.WriteLine("adicionei novo");
-                        Debug.WriteLine(MediaObject);
-                        Debug.WriteLine("total <<"+Images.Count+">>");
+
 
                     }
-                    Debug.WriteLine("\n retornei:"+Images);
+
+                 
 
                     return new Response(true, Images);
                 }else{

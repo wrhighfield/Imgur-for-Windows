@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Imgur.Services;
+using Imgur.UWP.Services;
+using Microsoft.UI.Xaml.Controls;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -14,6 +18,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+
 // O modelo de item de Página em Branco está documentado em https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Imgur.UWP.Controls
@@ -25,7 +30,22 @@ namespace Imgur.UWP.Controls
     {
         public MediaGrid()
         {
+  
             this.InitializeComponent();
+            object sysInfo = App.Services.GetService(typeof(ISystemInfoProvider)) ;
+
+            //Fix for Mobile/Desktop WinUI
+            if (sysInfo != null && ((ISystemInfoProvider)sysInfo).IsMobile()){
+                //this.RepeaterScrollHost.Visibility = Visibility.Collapsed;
+                //this.RepeaterScrollDef.Visibility = Visibility.Visible;
+                Debug.WriteLine("Mobile");
+            }
+            else
+            {
+               // this.RepeaterScrollHost.Visibility = Visibility.Visible;
+               // this.RepeaterScrollDef.Visibility = Visibility.Collapsed;
+                Debug.WriteLine("PC");
+            }
         }
 
 
@@ -41,6 +61,18 @@ namespace Imgur.UWP.Controls
         public static readonly DependencyProperty DataSourceProperty =
             DependencyProperty.Register("DataSource", typeof(object), typeof(MediaGrid), new PropertyMetadata(0));
 
+
+
+
+        public bool MediaLoaded
+        {
+            get { return (bool)GetValue(MediaLoadedProperty); }
+            set { SetValue(MediaLoadedProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsLoaded.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MediaLoadedProperty =
+            DependencyProperty.Register("MediaLoaded", typeof(bool), typeof(MediaGrid), new PropertyMetadata(0));
 
 
 

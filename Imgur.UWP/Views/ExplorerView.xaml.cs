@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -28,15 +30,14 @@ namespace Imgur.UWP.Views
         {
             this.InitializeComponent();
             this.DataContext = App.Services.GetRequiredService<ExplorerViewModel>();
-
         }
 
         public ExplorerViewModel ViewModel => (ExplorerViewModel)this.DataContext;
 
-
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
-        {
-             await ViewModel.InitializeAsync();
+        protected override void OnNavigatedTo(NavigationEventArgs e){
+            ViewModel.Initialize();
         }
+
+
     }
 }

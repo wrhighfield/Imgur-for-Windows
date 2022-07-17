@@ -3,6 +3,7 @@ using Imgur.API.Resources.Status;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -83,6 +84,7 @@ namespace Imgur.API
             }catch (Exception e){
                 ApiResponse.success = false;
                 ApiResponse.status = -1;
+                Debug.WriteLine(e);
                 return (ApiResponse);
             }
         }

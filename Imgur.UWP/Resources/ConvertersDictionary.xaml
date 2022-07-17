@@ -9,6 +9,8 @@
     <local1:BoolValueConverter x:Key="BoolValueConverter"/>
     <local1:IfValueConverter x:Key="IfValueConverter"/>
     <local1:KiloConverter x:Key="KiloConverter"/>
+    <local1:CoverTypeConverter x:Key="CoverTypeConverter"/>
+
 
 
 

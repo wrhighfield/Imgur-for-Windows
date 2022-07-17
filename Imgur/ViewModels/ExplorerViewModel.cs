@@ -16,33 +16,70 @@ namespace Imgur.ViewModels
         //D.I (Dependency Injection)
         private readonly INavigator _navigator;
         private readonly IAPIConsumption _apiconsumption;
-        private readonly IDialogService _dialogService;
 
+        private bool loadingCancelationToken;
 
         //Commands
-        private ICommand _refreshViewCommand;
+        private ICommand _loadViewCommand;
 
-        public ICommand RefreshViewCommand
+        public ICommand LoadViewCommand
         {
             get
             {
-                if (_refreshViewCommand == null)
+                if (_loadViewCommand == null)
                 {
-                    _refreshViewCommand = new RelayCommand(async () => {
-                        if (!Loading) {
+
+                    _loadViewCommand = new RelayCommand(async () => {
+                        if (!Loading){              
                             Loading = true;
+                            if (!loadingCancelationToken){
+                                loadingCancelationToken = true;
+                            }
+                            await Task.Delay(1500);                       
                             await LoadGalleryContent();
-                            await Task.Delay(3000);
                             Loading = false;
-                        }else{
-                            return;
+        
+
+                            
+
+                            //Load Async Media
+                            foreach (var cur in RetrievedMedia){
+                                if (loadingCancelationToken && Loading){
+                                    break;
+                                }else{
+                                    await cur.RetrieveImageAsync();
+                                    await Task.Delay(500);
+                                }
+                          
+                            }
+
+                            loadingCancelationToken = false;
+
+
                         }
                     });
                 }
-                return _refreshViewCommand;
+                return _loadViewCommand;
             }
         }
 
+        private ICommand _navigateMediaCommand;
+
+        public ICommand NavigateMediaCommand
+        {
+            get
+            {
+                if (_navigateMediaCommand == null)
+                {
+                    _navigateMediaCommand = new RelayCommand(() => {
+                        Debug.WriteLine("Navegar pra media");
+                        _navigator.Navigate("media");
+
+                    });
+                }
+                return _navigateMediaCommand;
+            }
+        }
 
         //Vars
         private ObservableCollection<Category> _retrievedGalleries = new ObservableCollection<Category>();
@@ -68,13 +105,13 @@ namespace Imgur.ViewModels
 
 
         private ObservableCollection<Media> _retrievedMedia = new ObservableCollection<Media>();
+
         public ObservableCollection<Media> RetrievedMedia
         {
             get { return _retrievedMedia; }
             set
             {
                 _retrievedMedia = value;
-                Debug.WriteLine("atualizeicoleecao");
                 OnPropertyChanged("RetrievedMedia");
             }
         }
@@ -90,6 +127,7 @@ namespace Imgur.ViewModels
                 OnPropertyChanged("Loading");
             }
         }
+
 
         private int _selectedGallery;
 
@@ -119,63 +157,55 @@ namespace Imgur.ViewModels
             _apiconsumption = apiconsumption;
         }
 
-        public async Task InitializeAsync(){
+        public void Initialize(){
 
             //If already loaded just ignore 
             if ((RetrievedGalleries.Count > 0 && RetrievedSort.Count > 0) || Loading){
                 return;
             }
-            
 
-            Debug.WriteLine("A");
-
-            Loading = true;
 
             //Retrieve Basic Sort Data (Only Once)
-            try{
-                if ((RetrievedGalleries = new ObservableCollection<Category>(_apiconsumption.GetExplorerGalleries())).Count > 0) { SelectedGallery = 0; }
-                if ((RetrievedSort = new ObservableCollection<Category>(_apiconsumption.GetExplorerSort())).Count > 0) { SelectedSort = 0; }
+            try
+            {
+                loadingCancelationToken = false;
+                RetrievedGalleries = new ObservableCollection<Category>(_apiconsumption.GetExplorerGalleries());
+                RetrievedSort = new ObservableCollection<Category>(_apiconsumption.GetExplorerSort());
+
+                //If Populated then
+                if (RetrievedGalleries.Count > 0 && RetrievedSort.Count > 0) {
+                    SelectedGallery = 0;
+                    SelectedSort = 0;
+                }
+               
             }catch (Exception e){
                 Debug.WriteLine(e);
                 Loading = false;
                 return;
             }
-
-            //Load Gallery Content
-            await Task.Delay(1000);
-            await LoadGalleryContent();
-            await Task.Delay(3000);
-            Loading = false;          
         }
 
 
         public async Task LoadGalleryContent(){
-            Response ExplorerMediaResponse = await _apiconsumption.GetExplorerMedia(SelectedGallery, SelectedSort);
 
             //Reset RetrievedMedia
-            RetrievedMedia.Clear();
-        
-            if (ExplorerMediaResponse.Success){
-                await Task.Delay(1000);
+
+            if(RetrievedMedia.Count > 0){
+                RetrievedMedia.Clear();
+            }
+            
+
+            Response ExplorerMediaResponse = await _apiconsumption.GetExplorerMedia(SelectedGallery, SelectedSort);
+            
+            if (ExplorerMediaResponse.Success){  
+                
                 RetrievedMedia = new ObservableCollection<Media>((List<Media>)ExplorerMediaResponse.Data);
+                
+                Debug.WriteLine(RetrievedMedia.Count);
             }
+            
         }
 
-
-
-        private ICommand _navigateMediaCommand;
-
-        public ICommand NavigateMediaCommand{
-            get{
-                if (_navigateMediaCommand == null){
-                    _navigateMediaCommand = new RelayCommand(() => {
-                        _navigator.Navigate("media");
-                    
-                    });
-                }
-                return _navigateMediaCommand;
-            }
-        }
 
 
 
